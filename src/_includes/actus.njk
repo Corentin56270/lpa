@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lomener Port d'Attache</title>
+    <link rel="stylesheet" href="/styles/home.css">
+    <link rel="icon" type="image/png" href="./media/logo.png">
+</head>
+<body>
+    {% include 'header.njk' %}
+    {{ content | safe }}
+
+    <main class="container">
+        <section class="home" id="home">
+            <h2>Actualités</h2><br>
+
+            <div id="actus" class="actus">
+                <a href="" class="actu">
+                    <h3>{{ actu1 }}</h3>
+                    <img src="./media/actu1.jpg" alt="Actualité 1">
+                </a>
+
+                <a href="" class="actu">
+                    <h3>Actualité 2</h3>
+                    <img src="./media/actu2.jpg" alt="Actualité 2">
+                </a>
+
+                <a href="" class="actu">
+                    <h3>Actualité 3</h3>
+                    <img src="./media/actu3.jpg" alt="Actualité 3">
+                </a>
+            
+                <a href="" class="actu">
+                    <h3>Actualité 4</h3>
+                    <img src="./media/actu4.jpg" alt="Actualité 4">
+                </a>
+            </div>
+        </section>       
+    </main>
+    
+    {% include 'footer.njk' %}
+</body>
+</html>
