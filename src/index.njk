@@ -1,4 +1,27 @@
 ---
-actu1 : Actualité 1
 layout: 'actus.njk'
 ---
+
+    <main class="container">
+        <section class="home" id="home">
+            <h2>Actualités</h2><br>
+            <div id="actus" class="actus">
+
+                {%- for post in collections.actu | reverse -%}
+                    <a href="{{ post.url }}" class="actu">
+                        <h3>{{ post.data.title }}</h3>
+                        <hr class="actu-barre">
+                        <div class="actu-meta">
+                            <h5>Par <strong>{{ post.data.author }}</strong></h5>
+                            <h6>{{ post.data.date | postDate }}</h6>
+                        </div>
+                        <br>
+                        <img src="{{ post.data.image }}" alt="{{ post.data.imageAlt }}">
+                        <br>
+                        <p>Cliquez pour lire la suite</p>
+                    </a>
+                {%- endfor -%}
+
+            </div>
+        </section>       
+    </main>

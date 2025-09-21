@@ -1,3 +1,33 @@
 ---
 layout: 'presentation.njk'
 ---
+
+<main class="container">
+    <section class="home" id="home">
+
+        <h2>Nos valeurs</h2>
+        <div id="valeurs" class="valeurs">
+            
+        </div>
+
+        <br><hr><br>
+        
+        <h2>Historique</h2>
+        <div id="historique" class="historique">
+            
+        </div>
+        
+        <br><hr><br>
+        
+        <h2>Le conseil d'administration</h2><br>
+        <div id="membres" class="membres">
+            {%- for post in collections.membre -%}
+                <a href="{{ post.url }}" class="membre">
+                    <img src="{{ post.data.photo }}" alt="{{ post.data.nom }}">
+                    <br>
+                    <h3>{{ post.data.nom }}</h3>
+                </a>
+            {%- endfor -%}
+        </div>
+    </section>       
+</main>
