@@ -2,10 +2,10 @@
    VARIABLES & RESET
 =========================== */
 :root {
-  --primary-color: #104a62;     /* fond */
-  --secondary-color: #6dc0ae;   /* bleu vert */
-  --text-color: #ffffff;        /* blanc */
-  --accent-color: #6dc0ae;      /* hover */
+  --primary-color: #104a62;
+  --secondary-color: #6dc0ae;
+  --text-color: #ffffff;
+  --accent-color: #6dc0ae;
 }
 
 * {
@@ -13,6 +13,10 @@
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
+}
+
+html, body {
+  height: 100%;
 }
 
 body {
@@ -43,6 +47,10 @@ main {
   padding: 20px 0;
 }
 
+footer {
+  margin-top: auto;
+}
+
 /* ===========================
    HEADER
 =========================== */
@@ -55,7 +63,7 @@ header {
 
 .header-top {
   display: flex;
-  align-items: stretch; /* logo prend la hauteur du texte */
+  align-items: stretch;
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
@@ -131,24 +139,6 @@ header {
   background: var(--accent-color);
 }
 
-html, body {
-  height: 100%;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-main {
-  flex: 1;
-}
-
-footer {
-  margin-top: auto;
-}
-
 /* ===========================
    NAV (global)
 =========================== */
@@ -204,6 +194,7 @@ nav ul li a:hover {
   box-shadow: 0 8px 20px rgba(255, 255, 255, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 hr {
   border: none;
   border-top: 2px solid var(--secondary-color);
@@ -303,27 +294,25 @@ hr {
 }
 
 .membre {
-  flex: 1 1 150px; /* largeur minimum 150px, mais flexible */
-  max-width: 200px; /* évite que ça devienne trop large */
-  padding: 12px; /* plus petit que .actu */
-  font-size: 0.9rem; /* texte plus petit */
+  flex: 1 1 150px;
+  max-width: 200px;
+  padding: 12px;
+  font-size: 0.9rem;
 }
 
 /* ===========================
    posts
 =========================== */
-/* Section du post */
 .actualite {
     width: 100%;
-    max-width: 1200px;           /* plus large qu'avant */
+    max-width: 1200px;
     margin: 40px auto;
     padding: 32px 16px;
-    background: rgba(16, 74, 98, 0.5); /* couleur primaire à 50% d'opacité */
+    background: rgba(16, 74, 98, 0.5);
     border-radius: 16px;
     box-shadow: 0 2px 16px rgba(0,0,0,0.08);
 }
 
-/* Titre centré */
 .actualite h2 {
     text-align: center;
     font-size: 2.2rem;
@@ -332,7 +321,6 @@ hr {
     font-weight: 700;
 }
 
-/* Bloc auteur/date + image sur la même ligne */
 .pres {
     display: flex;
     flex-direction: row;
@@ -343,7 +331,6 @@ hr {
     gap: 32px;
 }
 
-/* Auteur et date à gauche */
 .actu-meta {
     display: flex;
     flex-direction: column;
@@ -360,7 +347,6 @@ hr {
     text-align: left;
 }
 
-/* Image à droite */
 .pres img {
     max-width: 180px;
     max-height: 180px;
@@ -372,7 +358,6 @@ hr {
     border: 2px solid var(--secondary-color);
 }
 
-/* Barre de séparation */
 .actu-barre {
     width: 80%;
     margin: 16px auto;
@@ -381,7 +366,6 @@ hr {
     display: block;
 }
 
-/* Texte principal centré */
 .actu-content {
     text-align: center;
     margin: 0 auto;
@@ -391,7 +375,6 @@ hr {
     line-height: 1.7;
 }
 
-/* Responsive */
 @media (max-width: 700px) {
     .pres {
         flex-direction: column;
@@ -420,7 +403,7 @@ hr {
     min-height: 420px;
     margin: 24px auto;
     padding: 24px 18px;
-    background: rgba(16, 74, 98, 0.5); /* bleu transparent à 50% */
+    background: rgba(16, 74, 98, 0.5);
     border-radius: 18px;
     box-shadow: 0 4px 24px rgba(0,0,0,0.10);
     display: flex;
@@ -474,7 +457,6 @@ hr {
     word-break: break-word;
 }
 
-/* Responsive */
 @media (max-width: 500px) {
     .usercard {
         width: 95vw;
@@ -634,7 +616,7 @@ hr {
 =========================== */
 footer {
   background-color: var(--primary-color);
-  color: var(--text-color); 
+  color: var(--text-color);
   padding: 15px 0;
   border-top: 3px solid var(--secondary-color);
   text-align: center;
