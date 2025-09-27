@@ -1,0 +1,16 @@
+---
+layout: 'base.njk'
+---
+
+<section class="usercard" id="usercard">
+    <div id="user-meta" class="user-meta">
+        <br>
+        <img src="{{ photo }}" alt="{{ nom }}">
+        <br>
+        <h5><strong>{{ nom }}</strong></h5>
+    </div>
+    <hr class="actu-barre">
+    <div class="actu-content">
+        {{ content | safe }}
+    </div>
+</section>

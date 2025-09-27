@@ -1,0 +1,20 @@
+---
+layout: 'base.njk'
+---
+
+<section class="actualite" id="actualite">
+    <h2>{{ title }}</h2><br>
+    <div id="pres" class="pres">
+        <div class="actu-meta">
+            <h5>Par <strong>{{ author }}</strong></h5>
+            <h6>{{ date | postDate }}</h6>
+        </div>
+        <br>
+        <img src="{{ image }}" alt="{{ imageAlt }}">
+        <br>
+    </div>
+    <hr class="actu-barre">
+    <div class="actu-content">
+        {{ content | safe }}
+    </div>
+</section>
