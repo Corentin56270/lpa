@@ -1,0 +1,8 @@
+node_modules/
+public/
+_site/
+*.log
+npm-debug.log*
+.DS_Store
+.env
+.cache/
