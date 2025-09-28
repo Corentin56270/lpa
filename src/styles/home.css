@@ -230,6 +230,15 @@ hr {
 
 .actu h3 {
   font-size: 1.3rem;
+  line-height: 1.3;
+  text-align: center;
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .actu h3, .membre h3 {
@@ -240,9 +249,19 @@ hr {
   font-size: 1rem;
 }
 
-.actu img, .membre img {
+.actu img {
   width: 100%;
   border-radius: 5px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  max-height: 220px;
+}
+
+.membre img {
+  width: 100%;
+  border-radius: 5px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
 }
 
 .actu hr,
@@ -287,17 +306,23 @@ hr {
 }
 
 .membres {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 18px;
+  align-items: stretch;
 }
 
 .membre {
-  flex: 1 1 150px;
-  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   padding: 12px;
   font-size: 0.9rem;
+  text-align: center;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
 }
 
 /* ===========================
