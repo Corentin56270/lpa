@@ -278,6 +278,11 @@ hr {
   width: 100%;
 }
 
+.actu-meta img {
+  max-height: 120px;
+  max-width: 120px;
+}
+
 .actu-separator hr {
   flex: 1;
   border: none;
