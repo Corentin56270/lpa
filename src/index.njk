@@ -4,24 +4,28 @@ layout: 'base.njk'
 
     <main class="container">
         <section class="home" id="home">
-            <h2>Actualités</h2><br>
+            <header class="home-header">
+                <h2>Actualités</h2>
+                <p>Découvrez les dernières nouvelles de l'association Lomener Port d'Attache.</p>
+            </header>
             <div id="actus" class="actus">
 
                 {%- for post in collections.actu | reverse -%}
                     <a href="{{ post.url }}" class="actu">
-                        <h3>{{ post.data.title }}</h3>
-                        <hr class="actu-barre">
-                        <div class="actu-meta">
-                            <h5>Par <strong>{{ post.data.author }}</strong></h5>
-                            <h6>{{ post.data.date | postDate }}</h6>
-                        </div>
-                        <br>
-                        <img src="{{ post.data.image }}" alt="{{ post.data.imageAlt }}">
-                        <br>
-                        <p>Cliquez pour lire la suite</p>
+                        <header class="actu-head">
+                            <h3>{{ post.data.title }}</h3>
+                            <div class="actu-meta">
+                                <span class="actu-author">Par <strong>{{ post.data.author }}</strong></span>
+                                <time datetime="{{ post.data.date | postDateIso }}">{{ post.data.date | postDate }}</time>
+                            </div>
+                        </header>
+                        <figure class="actu-media">
+                            <img src="{{ post.data.image }}" alt="{{ post.data.imageAlt }}">
+                        </figure>
+                        <p class="actu-cta">Cliquez pour lire la suite</p>
                     </a>
                 {%- endfor -%}
 
             </div>
-        </section>       
+        </section>
     </main>

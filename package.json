@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Corentin56270/lpa#readme",
   "dependencies": {
-    "@11ty/eleventy": "^3.1.2"
+    "@11ty/eleventy": "^3.1.2",
+    "nodemailer": "^6.9.13"
   }
 }

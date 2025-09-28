@@ -7,34 +7,32 @@ layout: 'base.njk'
 
         <h2>Nos valeurs</h2>
         <div id="valeurs" class="valeurs">
-            <br><br>
-            Lomener port d'attache est un interlocuteur de la mairie et des pouvoirs publics en général.
-            <br><br>
-            Cependant nos valeurs sont de conserver une indépendance vis-à-vis de toutes organisations syndicales ou politique, même si chaque membre de l’association restant libre d’appartenir à toute organisation de son choix.
+            <p>Lomener Port d'Attache est un interlocuteur privilégié de la mairie et des pouvoirs publics.</p>
+            <p>Nous conservons une indépendance vis-à-vis de toute organisation syndicale ou politique, tout en laissant chaque adhérent libre de ses engagements.</p>
         </div>
 
-        <br><hr><br>
+        <hr class="section-divider">
 
         <h2>Historique</h2>
         <div id="historique" class="historique">
-            
-            <br><br>    
-            ASSOCIATION « LOMENER PORT D’ATTACHE »
-            <br><br>
-            Association apolitique de défense de l’environnement et de la qualité de vie à Lomener et ses environs.
-            <br><br>
-            Créée le 25 juin 2003, l'association Lomener port d'attache est une association association à but non lucratif régie par la loi du 1er juillet 1901.
+            <p><strong>Association « Lomener Port d’Attache »</strong></p>
+            <p>Association apolitique de défense de l’environnement et de la qualité de vie à Lomener et ses environs.</p>
+            <p>Créée le 25 juin 2003, l'association Lomener Port d'Attache est une association à but non lucratif régie par la loi du 1er juillet 1901.</p>
         </div>
-        
-        <br><hr><br>
 
-        <h2>Le conseil d'administration</h2><br>
+        <hr class="section-divider">
+
+        <h2>Le conseil d'administration</h2>
         <div id="membres" class="membres">
             {%- for post in collections.membre -%}
                 <a href="{{ post.url }}" class="membre">
-                    <img src="{{ post.data.photo }}" alt="{{ post.data.nom }}">
-                    <br>
-                    <h3>{{ post.data.nom }}</h3>
+                    <header class="membre-head">
+                        <h3>{{ post.data.nom }}</h3>
+                    </header>
+                    <figure class="membre-media">
+                        <img src="{{ post.data.photo }}" alt="{{ post.data.nom }}">
+                    </figure>
+                    <p class="membre-cta">Voir la fiche</p>
                 </a>
             {%- endfor -%}
         </div>

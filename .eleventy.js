@@ -9,6 +9,10 @@ module.exports = function(eleventyConfig) {
         return DateTime.fromJSDate(dateObj).toLocaleString(DateTime.DATE_MED);
     });
 
+    eleventyConfig.addFilter("postDateIso", (dateObj) => {
+        return DateTime.fromJSDate(dateObj).toISODate();
+    });
+
     return {
         dir: {
             input: "src",

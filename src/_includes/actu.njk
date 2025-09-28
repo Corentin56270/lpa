@@ -2,19 +2,23 @@
 layout: 'base.njk'
 ---
 
-<section class="actualite" id="actualite">
-    <h2>{{ title }}</h2><br>
-    <div id="pres" class="pres">
-        <div class="actu-meta">
-            <h5>Par <strong>{{ author }}</strong></h5>
-            <h6>{{ date | postDate }}</h6>
+<main class="container contact-page">
+    <section class="actualite" id="actualite">
+        <header class="actualite-header">
+            <h2>{{ title }}</h2>
+        </header>
+        <div id="pres" class="pres">
+            <div class="actu-meta">
+                <span class="actu-author">Par <strong>{{ author }}</strong></span>
+                <time datetime="{{ date | postDateIso }}">{{ date | postDate }}</time>
+            </div>
+            <figure class="actu-figure">
+                <img src="{{ image }}" alt="{{ imageAlt }}">
+            </figure>
         </div>
-        <br>
-        <img src="{{ image }}" alt="{{ imageAlt }}">
-        <br>
-    </div>
-    <hr class="actu-barre">
-    <div class="actu-content">
-        {{ content | safe }}
-    </div>
-</section>
+        <hr class="actu-barre">
+        <div class="actu-content">
+            {{ content | safe }}
+        </div>
+    </section>
+</main>
