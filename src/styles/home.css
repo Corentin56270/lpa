@@ -1466,7 +1466,7 @@ footer .container {
   }
   .header-nav {
     position: absolute;
-    top: calc(100% + 16px);
+    top: calc(100% + 0px);
     right: 0;
     min-width: 240px;
     background: rgba(4, 27, 36, 0.92);
@@ -1513,7 +1513,7 @@ footer .container {
   .nav-submenu {
     position: static;
     width: 100%;
-    margin-top: 8px;
+    margin-top: 0;
     padding: 12px 14px;
     background: rgba(4, 27, 36, 0.85);
     display: none;
