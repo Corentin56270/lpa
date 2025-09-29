@@ -3,20 +3,138 @@
       <a href="/index.html">
         <img src="/media/logo.png" alt="Logo" class="logo">
       </a>
+      <button class="header-menu-toggle" type="button" aria-expanded="false" aria-controls="header-nav">
+        <span class="sr-only">Menu</span>
+        <span class="header-menu-icon" aria-hidden="true"></span>
+      </button>
       <div class="header-texts">
         <a href="index.html" class="header-title-link">
           <h1>Lomener Port d'Attache</h1>
         </a>
-        <p>Ville de Ploemeur</p>
-        <nav>
-          <ul>
-            <li><a href="/index.html">Actualités</a></li>
-            <li><a href="/presentation/index.html">Présentation</a></li>
-            <li><a href="/media/inscription.pdf" target="_blank" rel="noopener noreferrer">Nous rejoindre</a></li>
-            <li><a href="/contact/index.html">Contact</a></li>
-            <li><a href="/documentation/index.html">Documentation</a></li>
+        <p class="header-subtitle">Ville de Ploemeur</p>
+        <nav id="header-nav" class="header-nav">
+          <ul class="header-nav-list">
+            <li class="nav-item"><a class="nav-link" href="/index.html">Actualités</a></li>
+            <li class="nav-item nav-item--has-children">
+              <div class="nav-item-parent">
+                <a class="nav-link" href="/presentation/index.html" aria-haspopup="true">Présentation</a>
+                <button class="nav-submenu-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu-presentation">
+                  <span class="sr-only">Afficher les sections de Présentation</span>
+                  <span class="nav-submenu-icon" aria-hidden="true"></span>
+                </button>
+              </div>
+              <ul id="nav-submenu-presentation" class="nav-submenu" aria-label="Sections de Présentation">
+                <li><a href="/presentation/index.html#valeurs">Nos valeurs</a></li>
+                <li><a href="/presentation/index.html#historique">Historique</a></li>
+                <li><a href="/presentation/index.html#membres">Conseil d'administration</a></li>
+              </ul>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="/media/inscription.pdf" target="_blank" rel="noopener noreferrer">Nous rejoindre</a></li>
+            <li class="nav-item"><a class="nav-link" href="/contact/index.html">Contact</a></li>
+            <li class="nav-item nav-item--has-children">
+              <div class="nav-item-parent">
+                <a class="nav-link" href="/documentation/index.html" aria-haspopup="true">Documentation</a>
+                <button class="nav-submenu-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu-documentation">
+                  <span class="sr-only">Afficher les sections de Documentation</span>
+                  <span class="nav-submenu-icon" aria-hidden="true"></span>
+                </button>
+              </div>
+              <ul id="nav-submenu-documentation" class="nav-submenu" aria-label="Sections de Documentation">
+                <li><a href="/documentation/index.html#parutions">Nos Parutions</a></li>
+                <li><a href="/documentation/index.html#presse">Vu dans la presse</a></li>
+              </ul>
+            </li>
           </ul>
         </nav>
       </div>
     </div>
 </header>
+<script>
+  (() => {
+    const toggle = document.querySelector('.header-menu-toggle');
+    const nav = document.getElementById('header-nav');
+    if (!toggle || !nav) {
+      return;
+    }
+
+    const submenuToggles = Array.from(nav.querySelectorAll('.nav-submenu-toggle'));
+
+    const closeAllSubmenus = () => {
+      submenuToggles.forEach((btn) => {
+        btn.setAttribute('aria-expanded', 'false');
+        const parentItem = btn.closest('.nav-item--has-children');
+        if (parentItem) {
+          parentItem.classList.remove('is-open');
+        }
+      });
+    };
+
+    const closeOnOutsideClick = (event) => {
+      if (!nav.classList.contains('is-open')) {
+        return;
+      }
+      const target = event.target;
+      if (!nav.contains(target) && target !== toggle && !toggle.contains(target)) {
+        toggle.setAttribute('aria-expanded', 'false');
+        nav.classList.remove('is-open');
+        closeAllSubmenus();
+      }
+    };
+
+    toggle.addEventListener('click', () => {
+      const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!isExpanded));
+      nav.classList.toggle('is-open', !isExpanded);
+      if (isExpanded) {
+        closeAllSubmenus();
+      }
+    });
+
+    submenuToggles.forEach((btn) => {
+      btn.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const parentItem = btn.closest('.nav-item--has-children');
+        const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+        if (!isExpanded) {
+          submenuToggles.forEach((otherBtn) => {
+            if (otherBtn !== btn) {
+              otherBtn.setAttribute('aria-expanded', 'false');
+              const otherItem = otherBtn.closest('.nav-item--has-children');
+              if (otherItem) {
+                otherItem.classList.remove('is-open');
+              }
+            }
+          });
+        }
+        btn.setAttribute('aria-expanded', String(!isExpanded));
+        if (parentItem) {
+          parentItem.classList.toggle('is-open', !isExpanded);
+        }
+      });
+    });
+
+    const desktopMedia = window.matchMedia('(min-width: 837px)');
+    const handleDesktopChange = (event) => {
+      if (event.matches) {
+        closeAllSubmenus();
+      }
+    };
+    if (typeof desktopMedia.addEventListener === 'function') {
+      desktopMedia.addEventListener('change', handleDesktopChange);
+    } else {
+      desktopMedia.addListener(handleDesktopChange);
+    }
+
+    nav.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && nav.classList.contains('is-open')) {
+        toggle.setAttribute('aria-expanded', 'false');
+        nav.classList.remove('is-open');
+        closeAllSubmenus();
+        toggle.focus();
+      }
+    });
+
+    document.addEventListener('click', closeOnOutsideClick);
+  })();
+</script>
