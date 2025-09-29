@@ -8,6 +8,9 @@ layout: 'base.njk'
             <img src="{{ photo }}" alt="{{ nom }}">
         </figure>
         <h5><strong>{{ nom }}</strong></h5>
+        {%- if position -%}
+            <p class="user-position">{{ position }}</p>
+        {%- endif -%}
     </div>
     <hr class="actu-barre">
     <div class="actu-content">

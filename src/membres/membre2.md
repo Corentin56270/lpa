@@ -1,6 +1,7 @@
 ---
 nom: Membre 2
 photo: /media/membres/member1.jpg
+position: lorem ipsum
 tags: membre
 ---
 

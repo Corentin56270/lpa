@@ -98,7 +98,7 @@ footer {
 =========================== */
 header {
   width: 100%;
-  padding: 32px 0 24px;
+  padding: 12px 0 24px;
   background: transparent;
   position: relative;
   z-index: 10;
@@ -707,19 +707,29 @@ hr {
   align-items: stretch;
   text-align: left;
   font-size: 0.95rem;
+  padding: 12px 18px 18px;
+  gap: 12px;
 }
 
 .membre-head {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   align-items: flex-start;
+  margin-bottom: -20px;
 }
 
 .membre h3 {
   font-size: 1.1rem;
   color: rgba(255, 255, 255, 0.9);
   margin: 0;
+}
+
+.membre-position {
+  margin: 0;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.68);
+  font-weight: 500;
 }
 
 .membre-media {
@@ -865,6 +875,10 @@ hr {
 }
 
 @media (max-width: 640px) {
+  .home {
+    padding: 32px 18px;
+  }
+
   .actualite {
     padding: 36px 24px;
   }
@@ -875,6 +889,29 @@ hr {
 
   .actu-figure img {
     width: 120px;
+  }
+
+  .membres {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .membre {
+    padding: 8px 10px 14px;
+    gap: 8px;
+  }
+
+  .membre-head {
+    gap: 4px;
+  }
+
+  .membre-media {
+    aspect-ratio: 1 / 1;
+    border-radius: 18px;
+  }
+
+  .membre-cta {
+    display: none;
   }
 }
 
@@ -928,6 +965,14 @@ hr {
   font-size: 1.4rem;
   font-weight: 700;
   margin: 0;
+  text-align: center;
+}
+
+.user-position {
+  margin: 0;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 500;
   text-align: center;
 }
 
@@ -1366,6 +1411,14 @@ footer .container {
 }
 
 @media (max-width: 836px) {
+  header {
+    width: 100%;
+    padding: 0x 0 24px;
+    background: transparent;
+    position: relative;
+    z-index: 10;
+  }
+
   .header-top {
     display: grid;
     grid-template-columns: auto 1fr;

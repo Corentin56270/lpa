@@ -28,6 +28,9 @@ layout: 'base.njk'
                 <a href="{{ post.url }}" class="membre">
                     <header class="membre-head">
                         <h3>{{ post.data.nom }}</h3>
+                        {%- if post.data.position -%}
+                            <p class="membre-position">{{ post.data.position }}</p>
+                        {%- endif -%}
                     </header>
                     <figure class="membre-media">
                         <img src="{{ post.data.photo }}" alt="{{ post.data.nom }}">
