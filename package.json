@@ -1,7 +1,7 @@
 {
   "name": "lomener-site",
   "version": "1.0.0",
-  "description": "",
+  "description": "Ce dépôt contient le site de l'association **Lomener Port d'Attache**, construit avec [Eleventy](https://www.11ty.dev/). Le site met en avant l'actualité, la présentation de l'association et propose un formulaire de contact sécurisé.",
   "main": "index.js",
   "scripts": {
     "start": "eleventy --serve",
@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/Corentin56270/lpa#readme",
   "dependencies": {
-    "@11ty/eleventy": "^3.1.2",
     "nodemailer": "^7.0.6"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2"
   }
 }
