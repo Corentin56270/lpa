@@ -1,7 +1,7 @@
 ---
 nom: Membre 4
 photo: /media/membres/member1.jpg
-position: lorem ipsum
+position: Secrétaire-adjoint
 tags: membre
 ---
 

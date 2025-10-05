@@ -1,7 +1,7 @@
 ---
 nom: Membre 2
 photo: /media/membres/member1.jpg
-position: lorem ipsum
+position: Vice-président
 tags: membre
 ---
 
