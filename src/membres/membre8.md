@@ -1,5 +1,5 @@
 ---
-nom: Membre 8
+nom: NOM Prénom
 photo: /media/membres/member1.jpg
 position: Membre du bureau
 tags: membre

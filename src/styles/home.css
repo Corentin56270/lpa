@@ -696,6 +696,17 @@ hr {
   width: 100%;
 }
 
+.membres-intro {
+  margin: 0 0 18px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.membres-intro p {
+  margin: 0;
+}
+
 .membres {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

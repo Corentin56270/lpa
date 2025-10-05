@@ -1,5 +1,5 @@
 ---
-nom: Membre 4
+nom: NOM Prénom
 photo: /media/membres/member1.jpg
 position: Secrétaire-adjoint
 tags: membre

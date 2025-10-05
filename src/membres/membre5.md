@@ -1,5 +1,5 @@
 ---
-nom: Membre 5
+nom: NOM Prénom
 photo: /media/membres/member1.jpg
 position: Trésorier
 tags: membre

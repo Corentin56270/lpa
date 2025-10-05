@@ -7,8 +7,6 @@ layout: 'base.njk'
 
         <h2 id="historique">Historique</h2>
         <div class="historique">
-            <p><strong>Association « Lomener Port d’Attache »</strong></p>
-            <p>Association apolitique de défense de l’environnement et de la qualité de vie à Lomener et ses environs.</p>
             <p>Créée le 25 juin 2003, l'association Lomener Port d'Attache est une association à but non lucratif régie par la loi du 1er juillet 1901.</p>
         </div>
 
@@ -16,18 +14,31 @@ layout: 'base.njk'
 
         <h2 id="valeurs">Nos valeurs</h2>
         <div class="valeurs">
-            <p>Lomener Port d'Attache est un interlocuteur privilégié de la mairie et des pouvoirs publics.</p>
-            <p>Nous conservons une indépendance vis-à-vis de toute organisation syndicale ou politique, tout en laissant chaque adhérent libre de ses engagements.</p>
+            <p>LPA est une association <strong>apolitique</strong> de défense de l’environnement et de la qualité de vie à Lomener et ses environs.</p>
+            <br>
+            <p><strong>Vocation principale</strong> : Regrouper tous les habitants de Lomener et des environs souhaitant s'unir pour <strong>préserver et maintenir</strong> la <strong>qualité et le cadre de vie</strong>, <strong>veiller à la sécurité</strong> des biens et des personnes, et <strong>protéger l’environnement</strong> dans son ensemble.</p>
+            <br>
+            <p>Nous sommes indépendants vis-à-vis de toute organisation syndicale ou politique, même si chaque membre de l’association reste libre d’appartenir à toute organisation de son choix.</p>
+            <br>
+            <p>Lomener port d'attache est un <strong>interlocuteur de la mairie</strong> et des pouvoirs publics en général.</p>
         </div>
 
         <hr class="section-divider">
 
-        <h2 id="statuts">Nos status</h2>
-        <div class="historique statuts"></div>
+        <h2 id="statuts">Nos statuts</h2>
+        <div class="historique statuts">
+            <p>L'association se compose de membres actifs. Sont membres actifs qui sont à jour de leur cotisation annuelle.</p>
+            <p>Lomener Port d'Attache intervient au sein de la commune de Ploemeur, composé des secteurs et villages de Kerlir, Kervam, Pen Palud, Kerscouët, Kerlavret, Le Doued Neuf, Lomener, le Guermeur, Le Pérello.</p>
+        </div>
 
         <hr class="section-divider">
 
         <h2 id="membres">Membres du bureau</h2>
+        <div class="membres-intro">
+            <p>L'association est dirigée par un conseil d'administration composé au minimum de 8 membres et au maximum de 17 membres.
+            <br>
+            <p>Chaque année lors de l'assemblée générale, le conseil d'administration procède à l'élection du bureau parmi ses membres.</p>
+        </div>
         <div class="membres">
             {%- for post in collections.membre -%}
                 <a href="{{ post.url }}" class="membre">

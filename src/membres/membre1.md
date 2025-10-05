@@ -1,5 +1,5 @@
 ---
-nom: Membre 1
+nom: NOM Prénom
 photo: /media/membres/member1.jpg
 position: Président
 tags: membre
