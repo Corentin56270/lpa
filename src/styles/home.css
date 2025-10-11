@@ -795,6 +795,9 @@ hr {
   width: 100%;
   margin: 0;
   padding: 48px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: 28px;
@@ -807,7 +810,6 @@ hr {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 12px;
 }
 
 .actualite h2 {
@@ -817,13 +819,28 @@ hr {
   text-align: left;
 }
 
+.actualite-header h2 {
+  position: relative;
+}
+
+.actualite-header h2::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--accent-color);
+  margin-top: 14px;
+  box-shadow: 0 0 12px rgba(109, 192, 174, 0.6);
+}
+
 .pres {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 28px;
   width: 100%;
-  margin-bottom: 24px;
+  margin: 0;
   padding: 24px 28px;
   background: var(--glass-bg-alt);
   border: 1px solid var(--glass-border);
@@ -860,7 +877,7 @@ hr {
 
 .actu-barre {
   width: 100%;
-  margin: 24px 0;
+  margin: 0;
   border: none;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -868,7 +885,7 @@ hr {
 .actu-download {
   display: flex;
   justify-content: flex-start;
-  margin: 0 0 24px;
+  margin: 0;
 }
 
 .actu-download-btn {
@@ -902,6 +919,7 @@ hr {
 
   .actualite {
     padding: 32px 24px;
+    gap: 32px;
   }
 
   .pres {
