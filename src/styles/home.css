@@ -87,6 +87,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 48px;
+  padding: 60px 0 80px;
 }
 
 footer {
