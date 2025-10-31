@@ -1,11 +1,11 @@
 ---
-title: Article 9
-author: Test
-date: 2025-09-27
+title: Sardines Lomener
+author: NOM Prénom
+date: 2025-10-23
 tags: actu
-image: /media/logo.png
+image: /media/SardinesLomener.jpg
 imageAlt: test
 pdf: /media/test.pdf
 ---
 
-Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+Bonjour je suis une sardine
