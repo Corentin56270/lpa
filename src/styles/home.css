@@ -67,7 +67,7 @@ body::after {
   inset: 0;
   z-index: -3;
   /* Fond image tout au fond */
-  background-image: url('/media/stole.jpg');
+  background-image: url('../media/stole.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -118,7 +118,7 @@ header {
   margin: 0 auto;
   gap: 32px;
   padding: 28px 36px;
-  background: var(--glass-bg);
+  background: var(--glass-bg-alt);
   border: 1px solid var(--glass-border);
   border-radius: 28px;
   box-shadow: var(--glass-shadow);
@@ -415,7 +415,7 @@ header {
   flex-direction: column;
   gap: 40px;
   padding: 48px;
-  background: var(--glass-bg);
+  background: var(--glass-bg-alt);
   border: 1px solid var(--glass-border);
   border-radius: 28px;
   box-shadow: var(--glass-shadow-lg);
@@ -783,7 +783,7 @@ hr {
   width: 100%;
   margin: 0;
   padding: 32px 36px;
-  background: var(--glass-bg);
+  background: var(--glass-bg-alt);
   border: 1px solid var(--glass-border);
   border-radius: 28px;
   box-shadow: var(--glass-shadow-lg);
@@ -895,7 +895,7 @@ hr {
   width: min(380px, 92vw);
   margin: 32px auto;
   padding: 36px 28px;
-  background: var(--glass-bg);
+  background: var(--glass-bg-alt);
   border: 1px solid var(--glass-border);
   border-radius: 28px;
   box-shadow: var(--glass-shadow-lg);
@@ -1053,11 +1053,13 @@ hr {
 
 .contact-intro {
   width: 100%;
-  background: rgba(16, 74, 98, 0.75);
-  border: 1px solid rgba(109, 192, 174, 0.4);
+  background: var(--glass-bg-alt);
+  border: 1px solid var(--glass-border);
   border-radius: 18px;
   padding: 32px 36px;
   box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
+  backdrop-filter: var(--surface-blur);
+  -webkit-backdrop-filter: var(--surface-blur);
 }
 
 .contact-intro h2 {
@@ -1081,14 +1083,16 @@ hr {
 }
 
 .contact-form {
-  background: rgba(16, 74, 98, 0.78);
+  background: var(--glass-bg-alt);
   border-radius: 18px;
   padding: 32px 36px;
-  border: 1px solid rgba(109, 192, 174, 0.45);
+  border: 1px solid var(--glass-border);
   box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
   display: flex;
   flex-direction: column;
   gap: 22px;
+  backdrop-filter: var(--surface-blur);
+  -webkit-backdrop-filter: var(--surface-blur);
 }
 
 .contact-form label {
@@ -1169,14 +1173,16 @@ hr {
 }
 
 .contact-details {
-  background: rgba(4, 27, 36, 0.78);
+  background: var(--glass-bg-alt);
   border-radius: 18px;
   padding: 32px 36px;
-  border: 1px solid rgba(109, 192, 174, 0.45);
+  border: 1px solid var(--glass-border);
   box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
   display: flex;
   flex-direction: column;
   gap: 14px;
+  backdrop-filter: var(--surface-blur);
+  -webkit-backdrop-filter: var(--surface-blur);
 }
 
 .contact-details h3 {
@@ -1313,11 +1319,34 @@ footer {
 }
 
 footer .container {
-  background: var(--glass-bg);
+  background: var(--glass-bg-alt);
   border: 1px solid var(--glass-border);
   border-radius: 28px;
   padding: 20px 32px;
   box-shadow: var(--glass-shadow);
   backdrop-filter: var(--surface-blur);
   -webkit-backdrop-filter: var(--surface-blur);
+}
+
+.parution {
+  background: var(--glass-bg-alt);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 18px 22px;
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: var(--surface-blur);
+  -webkit-backdrop-filter: var(--surface-blur);
+  color: inherit;
+  text-decoration: none;
+  margin: 16px 0;
+}
+
+.parution h3 {
+  margin: 0 0 8px 0;
+  color: var(--text-color);
+}
+
+.parution p {
+  margin: 0 0 12px 0;
+  color: rgba(255, 255, 255, 0.88);
 }
