@@ -1,6 +1,44 @@
 <header>
+  <style>
+    /* Utility: pas de retour à la ligne */
+    .no-wrap { white-space: nowrap; }
+
+    /* Desktop (>=1031px): seulement les menus sur une seule ligne */
+    @media (min-width: 1031px) {
+      header .header-nav-list { flex-wrap: nowrap; }
+      header .nav-item-parent { flex-wrap: nowrap; }
+      /* Rapprocher le bloc textes du logo, de façon responsive et sans chevauchement */
+      header .header-top {
+        justify-content: flex-start;
+        gap: clamp(8px, 2vw, 24px);
+      }
+      header .header-texts {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+    }
+
+    /* Entre 1031px et 1225px: menu en pleine largeur sous le logo */
+    @media (min-width: 1031px) and (max-width: 1225px) {
+      header .header-top {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+          "header-logo header-texts"
+          "header-nav header-nav";
+        align-items: center;
+      }
+      header .header-logo { grid-area: header-logo; }
+      header .header-texts { grid-area: header-texts; }
+      header #header-nav.header-nav {
+        grid-area: header-nav;
+        width: 100%;
+        position: static; /* s’assurer que le menu n’est pas absolu dans cette tranche */
+      }
+    }
+  </style>
     <div class="header-top">
-      <a href="/index.html">
+      <a href="/index.html" class="header-logo">
         <img src="/media/logo.png" alt="Logo" class="logo">
       </a>
       <button class="header-menu-toggle" type="button" aria-expanded="false" aria-controls="header-nav">
@@ -9,45 +47,79 @@
       </button>
       <div class="header-texts">
         <a href="index.html" class="header-title-link">
-          <h1>Lomener Port d'Attache</h1>
+          <h1 class="no-wrap">Lomener Port d'Attache</h1>
         </a>
-        <p class="header-subtitle">Association</p>
-        <nav id="header-nav" class="header-nav">
-          <ul class="header-nav-list">
-            <li class="nav-item nav-item--has-children">
-              <div class="nav-item-parent">
-                <a class="nav-link" href="/presentation/index.html" aria-haspopup="true">l'Association</a>
-                <button class="nav-submenu-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu-presentation">
-                  <span class="sr-only">Afficher les sections de Présentation</span>
-                  <span class="nav-submenu-icon" aria-hidden="true"></span>
-                </button>
-              </div>
-              <ul id="nav-submenu-presentation" class="nav-submenu" aria-label="Sections de Présentation">
-                <li><a href="/presentation/index.html#historique">Historique</a></li>
-                <li><a href="/presentation/index.html#valeurs">Nos valeurs</a></li>
-                <li><a href="/presentation/index.html#statuts">Nos status</a></li>
-                <li><a href="/presentation/index.html#membres">Membres du bureau</a></li>
-              </ul>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="/index.html">Actualités</a></li>
-            <li class="nav-item"><a class="nav-link" href="https://www.helloasso.com/associations/lomener-port-d-attache">Nous rejoindre</a></li>
-            <li class="nav-item"><a class="nav-link" href="/contact/index.html">Contact</a></li>
-            <li class="nav-item nav-item--has-children">
-              <div class="nav-item-parent">
-                <a class="nav-link" href="/documentation/index.html" aria-haspopup="true">Documentation</a>
-                <button class="nav-submenu-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu-documentation">
-                  <span class="sr-only">Afficher les sections de Documentation</span>
-                  <span class="nav-submenu-icon" aria-hidden="true"></span>
-                </button>
-              </div>
-              <ul id="nav-submenu-documentation" class="nav-submenu" aria-label="Sections de Documentation">
-                <li><a href="/documentation/index.html#parutions">Grain de Sel</a></li>
-                <li><a href="/documentation/index.html#presse">Nos Parutions</a></li>
-              </ul>
-            </li>
-          </ul>
-        </nav>
+        <p class="header-subtitle no-wrap">Association</p>
       </div>
+      <nav id="header-nav" class="header-nav">
+        <ul class="header-nav-list">
+          <!-- Qui sommes nous -->
+          <li class="nav-item nav-item--has-children">
+            <div class="nav-item-parent">
+              <a class="nav-link" href="/presentation/index.html" aria-haspopup="true">Qui sommes nous</a>
+              <button class="nav-submenu-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu-qui">
+                <span class="sr-only">Afficher les sections de Qui sommes nous</span>
+                <span class="nav-submenu-icon" aria-hidden="true"></span>
+              </button>
+            </div>
+            <ul id="nav-submenu-qui" class="nav-submenu" aria-label="Sections Qui sommes nous">
+              <li><a href="/presentation/index.html#valeurs">Nos valeurs</a></li>
+              <li><a href="/presentation/index.html#historique">Historique</a></li>
+              <li><a href="/presentation/index.html#membres">Le conseil d'administration</a></li>
+              <li><a href="/presentation/index.html#statuts">Les statuts</a></li>
+              <li><a href="/presentation/index.html#territoire">Territoire</a></li>
+            </ul>
+          </li>
+
+          <!-- Nous contacter -->
+          <li class="nav-item"><a class="nav-link" href="/contact/index.html">Nous contacter</a></li>
+
+          <!-- Nos actualités -->
+          <li class="nav-item nav-item--has-children">
+            <div class="nav-item-parent">
+              <a class="nav-link no-wrap" href="/index.html" aria-haspopup="true">Nos actualités</a>
+              <button class="nav-submenu-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu-actus">
+                <span class="sr-only">Afficher les sections d'Actualités</span>
+                <span class="nav-submenu-icon" aria-hidden="true"></span>
+              </button>
+            </div>
+            <ul id="nav-submenu-actus" class="nav-submenu" aria-label="Sections d'Actualités">
+              <li><a href="/index.html">Actualités</a></li>
+              <li><a href="/documentation/index.html#presse">Vu dans la presse</a></li>
+            </ul>
+          </li>
+
+          <!-- Nous rejoindre -->
+          <li class="nav-item nav-item--has-children">
+            <div class="nav-item-parent">
+              <a class="nav-link" href="#" aria-haspopup="true">Nous rejoindre</a>
+              <button class="nav-submenu-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu-rejoindre">
+                <span class="sr-only">Afficher les options pour nous rejoindre</span>
+                <span class="nav-submenu-icon" aria-hidden="true"></span>
+              </button>
+            </div>
+            <ul id="nav-submenu-rejoindre" class="nav-submenu" aria-label="Options pour nous rejoindre">
+              <li><a href="https://www.helloasso.com/associations/lomener-port-d-attache" target="_blank" rel="noopener">Hello asso</a></li>
+              <li><a href="/media/inscription.pdf">PDF</a></li>
+            </ul>
+          </li>
+
+          <!-- Documentation -->
+          <li class="nav-item nav-item--has-children">
+            <div class="nav-item-parent">
+              <a class="nav-link no-wrap" href="/documentation/index.html" aria-haspopup="true">Documentation</a>
+              <button class="nav-submenu-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu-documentation">
+                <span class="sr-only">Afficher les sections de Documentation</span>
+                <span class="nav-submenu-icon" aria-hidden="true"></span>
+              </button>
+            </div>
+            <ul id="nav-submenu-documentation" class="nav-submenu" aria-label="Sections de Documentation">
+              <li><a href="/documentation/index.html#parutions">Grain de sel</a></li>
+              <li><a href="/documentation/index.html#parutions">Nos parutions</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
     </div>
 </header>
 <script>
@@ -115,7 +187,7 @@
       });
     });
 
-    const desktopMedia = window.matchMedia('(min-width: 837px)');
+    const desktopMedia = window.matchMedia('(min-width: 1031px)');
     const handleDesktopChange = (event) => {
       if (event.matches) {
         closeAllSubmenus();

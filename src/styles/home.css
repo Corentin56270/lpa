@@ -66,7 +66,12 @@ body::after {
   position: fixed;
   inset: 0;
   z-index: -3;
-  background: var(--background-gradient);
+  /* Fond image tout au fond */
+  background-image: url('/media/stole.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   pointer-events: none;
 }
 
@@ -651,6 +656,9 @@ hr {
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
   background: rgba(255, 255, 255, 0.06);
+  width: 100%;
+  /* Imposer un ratio A4 portrait (210x297) pour les vignettes d'actus */
+  aspect-ratio: 210 / 297;
 }
 
 .actu-media img {
@@ -658,8 +666,9 @@ hr {
   height: 100%;
   display: block;
   object-fit: cover;
-  aspect-ratio: 16 / 9;
-  max-height: 220px;
+  /* Suppression de l'ancien ratio paysage et de la hauteur max */
+  /* aspect-ratio: 16 / 9; */
+  /* max-height: 220px; */
 }
 
 .actu-cta {
@@ -1365,7 +1374,7 @@ footer .container {
   }
 }
 
-@media (max-width: 836px) {
+@media (max-width: 1030px) {
   .header-top {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -1503,4 +1512,12 @@ footer .container {
   .btn {
     padding: 10px 20px;
   }
+}
+
+/* Actions de documentation (statuts) */
+.doc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
 }
