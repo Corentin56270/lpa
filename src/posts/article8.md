@@ -1,11 +1,11 @@
 ---
-title: Article 8
-author: Test
-date: 2025-09-19
+title: Regards sur Lomener d'hier
+author: NOM Prénom
+date: 2023-06-16
 tags: actu
-image: /media/logo.png
+image: /media/conf_regards.jpg
 imageAlt: test
-pdf:
+pdf: /media/conf_regards.pdf
 ---
 
-Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+Conférence "Regards sur Lomener d'hier à aujourd'hui" par Jean-Yves Le Cabellec, historien local, organisée par l'association "Les Amis de Lomener" le samedi 24 juin 2023 à 15h00 à la salle des fêtes de Lomener. Entrée libre.

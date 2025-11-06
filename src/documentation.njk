@@ -3,20 +3,269 @@ layout: 'base.njk'
 ---
 
 <main class="container">
-    <section class="home" id="home">
-        <header class="home-header">
-            <h2 id="parutions">Nos Parutions</h2>
-            <p>Retrouvez les bulletins et publications de l'association.</p>
-        </header>
-        <div class="parutions" aria-live="polite"></div>
+  <section class="home" id="home">
+    <header class="home-header">
+      <h2 id="parutions">Grain de sel</h2>
+      <p>Retrouvez les numéros « Grain de sel » en aperçu cliquable.</p>
+    </header>
 
-        <hr class="section-divider">
+    <div class="parutions grid-3" id="grains-list" aria-live="polite">
+      {%- for item in collections.grain -%}
+        <a class="doc-card"
+           href="{{ item.data.file }}"
+           target="_blank" rel="noopener noreferrer"
+           title="Grain de Sel"
+           data-gsdate="{{ item.data.gsDate }}">
+          <figure class="doc-thumb" data-pdf="{{ item.data.file }}"></figure>
+          <div class="doc-meta">
+            <strong class="doc-title">Grain de Sel</strong>
+          </div>
+          <p class="doc-cta">Cliquer pour voir plus</p>
+        </a>
+      {%- endfor -%}
+    </div>
 
+    <div class="more-wrap" style="text-align:center; margin-top: 10px;">
+      <button id="grains-more" class="btn" type="button" aria-expanded="false" aria-controls="grains-list">Voir plus</button>
+    </div>
 
-        <header class="home-header">
-            <h2 id="presse">Vu dans la presse</h2>
-            <p>Sélection d'articles et de mentions dans la presse locale.</p>
-        </header>
-        <div class="presse" aria-live="polite"></div>
-    </section>
+    <hr class="section-divider">
+
+    <header class="home-header">
+      <h2 id="presse">Vu dans la presse</h2>
+      <p>Sélection d'articles et de mentions dans la presse locale.</p>
+    </header>
+    <div class="presse" aria-live="polite"></div>
+  </section>
 </main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const list = document.getElementById('grains-list');
+    const moreBtn = document.getElementById('grains-more');
+    const sectionAnchor = document.getElementById('parutions');
+    if (!list) return;
+
+    const MONTHS = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+    const cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : '';
+
+    function parseYearMonth(s) {
+      if (!s) return { year: 0, month: 0 };
+      const m = String(s).match(/^(\d{4})-(\d{2})$/);
+      if (!m) return { year: 0, month: 0 };
+      return { year: parseInt(m[1], 10) || 0, month: parseInt(m[2], 10) || 0 };
+    }
+
+    // Libellé et tri
+    const cards = Array.from(list.querySelectorAll('.doc-card'));
+    cards.forEach(card => {
+      const { year, month } = parseYearMonth(card.dataset.gsdate || '');
+      const titleEl = card.querySelector('.doc-title');
+      const monthName = month ? cap(MONTHS[month-1]) : '';
+      if (titleEl) {
+        if (year && monthName) titleEl.textContent = `Grain de Sel · ${monthName} ${year}`;
+        else if (year) titleEl.textContent = `Grain de Sel · ${year}`;
+        else titleEl.textContent = 'Grain de Sel';
+      }
+      card.setAttribute('title', titleEl ? titleEl.textContent : 'Grain de Sel');
+      card.dataset.year = String(year || 0);
+      card.dataset.month = String(month || 0);
+    });
+
+    cards.sort((a, b) => {
+      const yb = parseInt(b.dataset.year || '0', 10);
+      const ya = parseInt(a.dataset.year || '0', 10);
+      if (yb !== ya) return yb - ya;
+      const mb = parseInt(b.dataset.month || '0', 10);
+      const ma = parseInt(a.dataset.month || '0', 10);
+      return mb - ma;
+    });
+    cards.forEach(c => list.appendChild(c));
+
+    // Pré-connexion et préchargement des PDFs pour accélérer le clic
+    function preconnect(url) {
+      try {
+        const origin = new URL(url, location.href).origin;
+        const id = 'preconnect-' + btoa(origin).replace(/=+/g,'');
+        if (document.getElementById(id)) return;
+        const dns = document.createElement('link');
+        dns.rel = 'dns-prefetch';
+        dns.href = origin;
+        const link = document.createElement('link');
+        link.id = id;
+        link.rel = 'preconnect';
+        link.href = origin;
+        link.crossOrigin = 'anonymous';
+        document.head.appendChild(dns);
+        document.head.appendChild(link);
+      } catch (_) {}
+    }
+    function prefetchPdf(url) {
+      try {
+        if (!url) return;
+        const id = 'prefetch-' + btoa(url).replace(/=+/g,'');
+        if (document.getElementById(id)) return;
+        const link = document.createElement('link');
+        link.id = id;
+        link.rel = 'prefetch';
+        link.as = 'document';
+        link.href = url;
+        link.crossOrigin = 'anonymous';
+        document.head.appendChild(link);
+      } catch (_) {}
+    }
+    const firstHref = cards[0]?.getAttribute('href');
+    if (firstHref) preconnect(firstHref);
+
+    // Prefetch au survol/focus
+    cards.forEach(card => {
+      const href = card.getAttribute('href');
+      if (!href) return;
+      let armed = false;
+      const arm = () => { if (armed) return; armed = true; prefetchPdf(href); };
+      card.addEventListener('pointerenter', arm, { passive: true });
+      card.addEventListener('focus', arm, { passive: true, capture: true });
+      card.addEventListener('touchstart', arm, { passive: true });
+    });
+
+    // Prefetch des premières visibles (anticipation)
+    const PREFETCH_PREROLL = 3;
+    const scheduled = new WeakSet();
+    const prefetchIo = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          const href = e.target.getAttribute('href');
+          if (href) prefetchPdf(href);
+          prefetchIo.unobserve(e.target);
+        }
+      }
+    }, { rootMargin: '200px 0px', threshold: 0.1 });
+    function schedulePrefetch() {
+      let count = 0;
+      for (const card of cards) {
+        const visible = card.style.display !== 'none';
+        if (visible && count < PREFETCH_PREROLL && !scheduled.has(card)) {
+          scheduled.add(card);
+          prefetchIo.observe(card);
+          count++;
+        }
+      }
+    }
+
+    // Afficher par paliers de 6 avec toggle Voir plus / Voir moins
+    const CHUNK = 6;
+    const INITIAL = CHUNK;
+    let shown = Math.min(INITIAL, cards.length);
+
+    function applyShowLimit() {
+      cards.forEach((card, idx) => {
+        card.style.display = idx < shown ? '' : 'none';
+      });
+      if (!moreBtn) return;
+      const allShown = shown >= cards.length;
+      moreBtn.textContent = allShown ? 'Voir moins' : 'Voir plus';
+      moreBtn.setAttribute('aria-expanded', allShown ? 'true' : 'false');
+      moreBtn.style.display = cards.length > INITIAL ? '' : 'none';
+      schedulePrefetch();
+    }
+
+    if (moreBtn) {
+      moreBtn.addEventListener('click', () => {
+        const allShown = shown >= cards.length;
+        if (allShown) {
+          shown = INITIAL;
+          applyShowLimit();
+          if (sectionAnchor) sectionAnchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          shown = Math.min(shown + CHUNK, cards.length);
+          applyShowLimit();
+        }
+      });
+    }
+
+    applyShowLimit();
+
+    // Chargement paresseux de PDF.js + rendu canvas (léger)
+    let pdfjsReady = false;
+    function loadPdfJs() {
+      return new Promise((resolve, reject) => {
+        if (pdfjsReady && window['pdfjs-dist/build/pdf']) return resolve(window['pdfjs-dist/build/pdf']);
+        const s = document.createElement('script');
+        s.src = 'https://unpkg.com/pdfjs-dist@3.10.111/build/pdf.min.js';
+        s.async = true;
+        s.onload = () => {
+          const pdfjsLib = window['pdfjs-dist/build/pdf'];
+          if (!pdfjsLib) return reject(new Error('PDF.js indisponible'));
+          pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@3.10.111/build/pdf.worker.min.js';
+          pdfjsReady = true;
+          resolve(pdfjsLib);
+        };
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+    }
+
+    const queue = [];
+    let working = false;
+    async function work() {
+      if (working) return;
+      const job = queue.shift();
+      if (!job) return;
+      working = true;
+      try {
+        const pdfjsLib = await loadPdfJs();
+        await renderThumb(pdfjsLib, job.container, job.src);
+      } catch (e) {
+        job.container.innerHTML = '<div style="opacity:.7;padding:12px;text-align:center;">Aperçu indisponible</div>';
+        console.error('Preview PDF échouée', job.src, e);
+      } finally {
+        working = false;
+        if (queue.length) work();
+      }
+    }
+
+    async function renderThumb(pdfjsLib, container, src) {
+      const canvas = document.createElement('canvas');
+      canvas.className = 'pdf-thumb';
+      container.innerHTML = '';
+      container.appendChild(canvas);
+      const loadingTask = pdfjsLib.getDocument({
+        url: encodeURI(src),
+        rangeChunkSize: 64 * 1024
+      });
+      const pdf = await loadingTask.promise;
+      const page = await pdf.getPage(1);
+      const viewport = page.getViewport({ scale: 1 });
+      const rect = container.getBoundingClientRect();
+      const MAX_W = 300, MAX_H = 420;
+      const targetWidth = Math.max(Math.min(rect.width || 210, MAX_W), 210);
+      const targetHeight = Math.max(Math.min(rect.height || 297, MAX_H), 297);
+      const scale = Math.min(targetWidth / viewport.width, targetHeight / viewport.height);
+      const renderViewport = page.getViewport({ scale });
+      const dpr = 1; // rapide
+      canvas.width = Math.round(renderViewport.width * dpr);
+      canvas.height = Math.round(renderViewport.height * dpr);
+      canvas.style.width = Math.round(renderViewport.width) + 'px';
+      canvas.style.height = Math.round(renderViewport.height) + 'px';
+      const ctx = canvas.getContext('2d');
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      await page.render({ canvasContext: ctx, viewport: renderViewport }).promise;
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          const container = entry.target;
+          const src = container.getAttribute('data-pdf');
+          if (src) {
+            queue.push({ container, src });
+            work();
+          }
+          io.unobserve(container);
+        }
+      }
+    }, { rootMargin: '100px 0px', threshold: 0.1 });
+
+    list.querySelectorAll('.doc-thumb[data-pdf]').forEach(el => io.observe(el));
+  });
+</script>
