@@ -11,12 +11,16 @@ layout: 'base.njk'
 
     <div class="parutions grid-3" id="grains-list" aria-live="polite">
       {%- for item in collections.grain -%}
+        {%- set pdf = item.data.file -%}
+        {%- set thumb = pdf | replace('/media/grains_de_sel/', '/media/grains_de_sel/thumbs/') | replace('.pdf', '.png') -%}
         <a class="doc-card"
-           href="{{ item.data.file }}"
+           href="{{ pdf }}"
            target="_blank" rel="noopener noreferrer"
            title="Grain de Sel"
            data-gsdate="{{ item.data.gsDate }}">
-          <figure class="doc-thumb" data-pdf="{{ item.data.file }}"></figure>
+          <figure class="doc-thumb" data-pdf="{{ pdf }}" data-thumb="{{ thumb }}">
+            <img src="{{ thumb }}" alt="Aperçu {{ pdf }}" onerror="this.style.display='none'">
+          </figure>
           <div class="doc-meta">
             <strong class="doc-title">Grain de Sel</strong>
           </div>
@@ -152,8 +156,8 @@ layout: 'base.njk'
       }
     }
 
-    // Afficher par paliers de 6 avec toggle Voir plus / Voir moins
-    const CHUNK = 6;
+    // Afficher par paliers de 8 avec toggle Voir plus / Voir moins
+    const CHUNK = 8;
     const INITIAL = CHUNK;
     let shown = Math.min(INITIAL, cards.length);
 
@@ -184,88 +188,5 @@ layout: 'base.njk'
     }
 
     applyShowLimit();
-
-    // Chargement paresseux de PDF.js + rendu canvas (léger)
-    let pdfjsReady = false;
-    function loadPdfJs() {
-      return new Promise((resolve, reject) => {
-        if (pdfjsReady && window['pdfjs-dist/build/pdf']) return resolve(window['pdfjs-dist/build/pdf']);
-        const s = document.createElement('script');
-        s.src = 'https://unpkg.com/pdfjs-dist@3.10.111/build/pdf.min.js';
-        s.async = true;
-        s.onload = () => {
-          const pdfjsLib = window['pdfjs-dist/build/pdf'];
-          if (!pdfjsLib) return reject(new Error('PDF.js indisponible'));
-          pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@3.10.111/build/pdf.worker.min.js';
-          pdfjsReady = true;
-          resolve(pdfjsLib);
-        };
-        s.onerror = reject;
-        document.head.appendChild(s);
-      });
-    }
-
-    const queue = [];
-    let working = false;
-    async function work() {
-      if (working) return;
-      const job = queue.shift();
-      if (!job) return;
-      working = true;
-      try {
-        const pdfjsLib = await loadPdfJs();
-        await renderThumb(pdfjsLib, job.container, job.src);
-      } catch (e) {
-        job.container.innerHTML = '<div style="opacity:.7;padding:12px;text-align:center;">Aperçu indisponible</div>';
-        console.error('Preview PDF échouée', job.src, e);
-      } finally {
-        working = false;
-        if (queue.length) work();
-      }
-    }
-
-    async function renderThumb(pdfjsLib, container, src) {
-      const canvas = document.createElement('canvas');
-      canvas.className = 'pdf-thumb';
-      container.innerHTML = '';
-      container.appendChild(canvas);
-      const loadingTask = pdfjsLib.getDocument({
-        url: encodeURI(src),
-        rangeChunkSize: 64 * 1024
-      });
-      const pdf = await loadingTask.promise;
-      const page = await pdf.getPage(1);
-      const viewport = page.getViewport({ scale: 1 });
-      const rect = container.getBoundingClientRect();
-      const MAX_W = 300, MAX_H = 420;
-      const targetWidth = Math.max(Math.min(rect.width || 210, MAX_W), 210);
-      const targetHeight = Math.max(Math.min(rect.height || 297, MAX_H), 297);
-      const scale = Math.min(targetWidth / viewport.width, targetHeight / viewport.height);
-      const renderViewport = page.getViewport({ scale });
-      const dpr = 1; // rapide
-      canvas.width = Math.round(renderViewport.width * dpr);
-      canvas.height = Math.round(renderViewport.height * dpr);
-      canvas.style.width = Math.round(renderViewport.width) + 'px';
-      canvas.style.height = Math.round(renderViewport.height) + 'px';
-      const ctx = canvas.getContext('2d');
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      await page.render({ canvasContext: ctx, viewport: renderViewport }).promise;
-    }
-
-    const io = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          const container = entry.target;
-          const src = container.getAttribute('data-pdf');
-          if (src) {
-            queue.push({ container, src });
-            work();
-          }
-          io.unobserve(container);
-        }
-      }
-    }, { rootMargin: '100px 0px', threshold: 0.1 });
-
-    list.querySelectorAll('.doc-thumb[data-pdf]').forEach(el => io.observe(el));
   });
 </script>

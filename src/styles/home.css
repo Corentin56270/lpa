@@ -25,10 +25,15 @@
 
 html, body {
   height: 100%;
+  overflow-x: hidden; /* avoid horizontal scroll */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* smooth native scrolling on iOS */
+  touch-action: pan-y; /* allow vertical pan */
 }
 
 body {
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   margin: 0;
@@ -95,7 +100,7 @@ main {
 }
 
 footer {
-  margin-top: auto;
+  margin-top: auto !important;
 }
 
 /* ===========================
@@ -169,6 +174,10 @@ header {
   font-weight: 700;
   letter-spacing: 1px;
   text-align: left;
+}
+
+.header-texts h1.no-wrap {
+  white-space: nowrap;
 }
 
 .header-texts p {
@@ -707,7 +716,7 @@ hr {
 
 .membres {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 24px;
   align-items: stretch;
 }
@@ -954,6 +963,8 @@ hr {
   font-size: 1rem;
   line-height: 1.7;
   word-break: break-word;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 @media (max-width: 500px) {
@@ -1450,3 +1461,389 @@ footer .container {
   color: rgba(255,255,255,0.5);
   font-size: 0.9rem;
 }
+
+/* ========== MOBILE NAV (≤1030px) ========== */
+@media (max-width: 1030px) {
+  /* Offsets responsives pour le bouton et la nav */
+  .header-top {
+    /* Décalage pourcentage (viewport) */
+    --burger-offset-x: 5vw; /* plus loin des bords */
+    --burger-offset-y: 3vh;
+    --burger-area: calc(var(--burger-offset-y) + 44px);
+    padding-top: calc(var(--burger-area) + 6px);
+  }
+
+  /* Bouton burger visible et éloigné du coin */
+  .header-menu-toggle {
+    display: inline-flex;
+    position: absolute;
+    top: var(--burger-offset-y);
+    right: var(--burger-offset-x);
+    z-index: 40;
+  }
+
+  /* Navigation repliée, collée juste sous le bouton */
+  .header-nav {
+    position: absolute;
+    top: calc(var(--burger-area) + 4px);
+    left: var(--burger-offset-x);
+    right: var(--burger-offset-x);
+    z-index: 35;
+    background: var(--glass-bg-alt);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    box-shadow: var(--glass-shadow-lg);
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: max-height 0.3s ease, opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  /* Ouvrir la nav quand le burger est actif (aria) ou via la classe is-open */
+  .header-nav.is-open,
+  .header-menu-toggle[aria-expanded="true"] ~ .header-nav {
+    max-height: 80vh;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Liste verticale en pile */
+  .header-nav-list {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    padding: 12px;
+  }
+
+  .nav-item { width: 100%; }
+
+  .nav-item-parent {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .nav-link {
+    flex: 1 1 auto;
+    width: 100%;
+    text-align: left;
+    border-radius: 12px;
+  }
+
+  /* Désactiver l’ouverture au survol en mobile */
+  .nav-item--has-children:hover > .nav-submenu,
+  .nav-item--has-children:focus-within > .nav-submenu {
+    display: none !important;
+  }
+
+  /* Activer le bouton de sous-menu en mobile */
+  .nav-submenu-toggle { display: inline-flex; }
+
+  /* Sous-menu dans le flux, replié par défaut */
+  .nav-submenu {
+    position: static;
+    display: none;
+    width: 100%;
+    margin-top: 6px;
+    padding: 10px;
+    border-radius: 14px;
+    background: rgba(4, 27, 36, 0.82);
+    border: 1px solid var(--glass-border-strong);
+    box-shadow: var(--glass-shadow);
+    gap: 8px;
+  }
+
+  /* Ouvrir le sous-menu avec aria ou classe */
+  .nav-item--has-children.is-open > .nav-submenu,
+  .nav-submenu-toggle[aria-expanded="true"] + .nav-submenu {
+    display: grid;
+  }
+
+  /* Ajustements visuels généraux */
+  .header-texts { width: 100%; }
+  .header-top .logo { max-height: 110px; }
+  header .header-subtitle { display: none; }
+}
+
+/* === Overrides ciblés === */
+
+/* Réduire la largeur max des grilles Actus / Grains / Membres */
+.actus,
+.parutions.grid-3,
+.membres {
+  width: min(1000px, 92vw);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Harmoniser la grille Grains de sel avec Actus (shrink auto-fit) */
+.parutions.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* Affiner la grille des membres pour éviter l’unique colonne trop tôt */
+.membres {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+/* Burger: offsets en pourcentage + blur du pop-up + correctif sous-menus */
+@media (max-width: 1030px) {
+  .header-top {
+    /* Décalage pourcentage (viewport) */
+    --burger-offset-x: 5vw; /* plus loin des bords */
+    --burger-offset-y: 3vh;
+    --burger-area: calc(var(--burger-offset-y) + 44px);
+    padding-top: calc(var(--burger-area) + 6px);
+  }
+  .header-menu-toggle {
+    top: var(--burger-offset-y);
+    right: var(--burger-offset-x);
+  }
+  .header-nav {
+    top: calc(var(--burger-area) + 4px);
+    left: var(--burger-offset-x);
+    right: var(--burger-offset-x);
+    /* Blur comme ailleurs sur le site */
+    backdrop-filter: var(--surface-blur);
+    -webkit-backdrop-filter: var(--surface-blur);
+  }
+  /* Forcer l’affichage du sous-menu quand l’item est ouvert (priorité) */
+  .nav-item--has-children.is-open > .nav-submenu { display: grid !important; }
+}
+
+/* Mobile très étroit: appliquer le fond par carte/section, pas sur le wrapper */
+@media (max-width: 530px) {
+  .container { width: 96vw; }
+  .home {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Réduire les paddings pour gagner de la place et garder lisibilité */
+  .actu,
+  .membre,
+  .doc-card,
+  .contact-intro,
+  .contact-form,
+  .contact-details,
+  .parutions,
+  .presse,
+  .valeurs,
+  .historique {
+    padding: 16px;
+  }
+}
+
+/* Styles pour les cartes de section (presentation.njk) */
+.section-card {
+  background: var(--glass-bg-alt);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 24px 28px;
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: var(--surface-blur);
+  -webkit-backdrop-filter: var(--surface-blur);
+}
+
+/* Titres encadrés à ≤530px */
+@media (max-width: 530px) {
+  .home > h2,
+  .home-header h2 {
+    background: var(--glass-bg-alt);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    padding: 10px 14px;
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: var(--surface-blur);
+    -webkit-backdrop-filter: var(--surface-blur);
+  }
+}
+
+/* Réduction des min-width pour une meilleure densité */
+.actus { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.parutions.grid-3 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.membres { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+
+/* Sous 530px: retirer le blur de couches globales, le laisser sur les éléments */
+@media (max-width: 530px) {
+  /* Wrapper home sans fond ni blur (déjà fait plus haut), réaffirmation légère */
+  .home {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  /* S’assurer que le flou reste sur les cartes et titres encadrés */
+  .section-card,
+  .home > h2,
+  .home-header h2,
+  .actu,
+  .membre,
+  .doc-card,
+  .contact-intro,
+  .contact-form,
+  .contact-details,
+  .parutions,
+  .presse,
+  .valeurs,
+  .historique {
+    backdrop-filter: var(--surface-blur);
+    -webkit-backdrop-filter: var(--surface-blur);
+  }
+}
+
+/* Titre: autoriser retour à la ligne en dessous de 1030px et compacter sous 600px */
+@media (max-width: 1030px) {
+  header .header-texts h1.no-wrap { white-space: normal; }
+}
+@media (max-width: 600px) {
+  header .header-texts h1 { font-size: clamp(1.2rem, 6.5vw, 1.8rem); }
+}
+
+/* ≤530px: un grand cadre global pour le contenu, retirer les cadres internes */
+@media (max-width: 530px) {
+  .home {
+    background: var(--glass-bg-alt);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: var(--surface-blur);
+    -webkit-backdrop-filter: var(--surface-blur);
+    padding: 20px;
+  }
+  /* Retirer les cadres internes des contenus textuels pour éviter double encadrement */
+  .section-card,
+  .valeurs,
+  .historique,
+  .parutions,
+  .presse,
+  .contact-intro,
+  .contact-form,
+  .contact-details {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Garder les cartes individuelles encadrées */
+  .actu,
+  .membre,
+  .doc-card { /* restent encadrées */ }
+
+  /* Titres encadrés pour lisibilité */
+  .home > h2,
+  .home-header h2 { margin-left: 2px; margin-right: 2px; }
+}
+
+/* Empêcher le dépassement de la grille des membres et réduire drastiquement min-width */
+.membres { grid-auto-rows: 1fr; }
+.membres .membre { min-width: 0; }
+.membres { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+
+/* Grilles: éviter les débordements en responsive */
+@media (max-width: 1030px) {
+  .actus, .parutions.grid-3, .membres { width: 100%; }
+}
+
+/* Membres: cap à 5 colonnes max et min-width relevée */
+.membres { grid-template-columns: repeat(auto-fit, minmax(max(150px, 20%), 1fr)); }
+
+/* Mobile compact (≤530px): réduire fortement les espaces verticaux et la densité */
+@media (max-width: 530px) {
+  .home { gap: 16px; }
+  .section-divider { margin: 8px 0; }
+  .home > h2::after, .home-header h2::after { margin-top: 8px; }
+
+  /* Grille membres compacte */
+  .membres { gap: 10px; }
+  .membre { padding: 12px; gap: 8px; }
+  .membre-head { gap: 2px; }
+  .membre-cta { display: none; }
+
+  /* Actus/Carte: compaction similaire */
+  .actu { padding: 14px; gap: 10px; }
+  .actu-head { gap: 6px; }
+  .actu-meta { gap: 6px; }
+}
+
+/* ===== Fix Grains de sel: pleine largeur + largeur max d’avant ===== */
+.parutions.grid-3 {
+  width: min(1200px, 92vw);
+  margin-left: auto;
+  margin-right: auto;
+  justify-items: stretch;
+}
+.parutions.grid-3 > *,
+.parutions.grid-3 .doc-card { width: 100%; }
+
+/* ===== Anti-débordement actus/membres ===== */
+.home .actus, .home .membres { width: 100%; }
+.actus .actu, .membres .membre { min-width: 0; max-width: 100%; }
+
+/* === Container queries: compacter/masquer CTA quand la carte membre est fine === */
+.membre { container-type: inline-size; }
+@container (max-width: 210px) {
+  .membre { padding: 8px; gap: 4px; }
+  .membre-head { gap: 1px; }
+  .membre h3 { font-size: 0.95rem; line-height: 1.15; margin-top: 0; }
+  .membre-position { font-size: 0.85rem; line-height: 1.15; margin-bottom: 0; }
+  .membre-media { aspect-ratio: 1 / 1; }
+  .membre-cta { display: none; }
+}
+
+/* === Anti-débordements finaux (prioritaires) === */
+.home .actus, .home .parutions.grid-3, .home .membres { width: 100% !important; max-width: 100% !important; }
+.actus .actu, .parutions.grid-3 .doc-card, .membres .membre { min-width: 0; max-width: 100%; width: 100%; }
+
+/* === Mobile scroll fixes ===
+   Ensure touch scrolling works correctly on mobile devices.
+   - enable -webkit-overflow-scrolling
+   - ensure touch-action allows vertical pan
+   - ensure overlay nav doesn't trap pointer events or block page scroll
+*/
+html, body {
+  overflow-x: hidden; /* avoid horizontal scroll */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* smooth native scrolling on iOS */
+  touch-action: pan-y; /* allow vertical pan */
+}
+
+/* avoid overlays capturing scroll from the page */
+.header-nav {
+  overscroll-behavior: contain;
+}
+
+@media (max-width: 1030px) {
+  /* When burger nav opens, allow internal scrolling but don't prevent page scroll
+     limit its height to viewport and keep it scrollable if content exceeds */
+  .header-nav.is-open {
+    position: absolute; /* keep absolute but ensure it can scroll */
+    max-height: calc(100vh - calc(var(--burger-area) + 10px));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    /* keep pointer-events auto while open */
+    pointer-events: auto;
+  }
+}
+
+/* Some browsers can't scroll if body/html set to 100% height and flex children
+   use align-items: center; ensure main can grow and allow scrolling */
+main { min-height: 0; }
+
+/* Small safety: remove any accidental touch-action:none or pointer-events settings on big wrappers */
+.home, .container, header, main, footer { touch-action: auto; }
+
+/* Sticky footer: garantir que le bloc central prend l’espace disponible */
+body > header { flex: 0 0 auto; }
+body > footer { flex: 0 0 auto; }
+body > *:not(header):not(footer) { flex: 1 0 auto; }
