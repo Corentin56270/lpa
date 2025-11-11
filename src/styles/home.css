@@ -1717,15 +1717,12 @@ footer .container {
     -webkit-backdrop-filter: var(--surface-blur);
     padding: 20px;
   }
-  /* Retirer les cadres internes des contenus textuels pour éviter double encadrement */
-  .section-card,
-  .valeurs,
-  .historique,
-  .parutions,
-  .presse,
-  .contact-intro,
-  .contact-form,
-  .contact-details {
+  /* Retirer les cadres internes des contenus textuels UNIQUEMENT dans .home */
+  .home .section-card,
+  .home .valeurs,
+  .home .historique,
+  .home .parutions,
+  .home .presse {
     background: transparent;
     border: 0;
     box-shadow: none;
@@ -1847,3 +1844,212 @@ main { min-height: 0; }
 body > header { flex: 0 0 auto; }
 body > footer { flex: 0 0 auto; }
 body > *:not(header):not(footer) { flex: 1 0 auto; }
+
+/* Fix overflow grains de sel dans le cadre .home - ULTRA CRITIQUE */
+.home {
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+}
+
+#grains-list.parutions.grid-3,
+.home .parutions.grid-3 {
+  width: 90% !important;
+  max-width: 90% !important;
+  margin: 0 auto !important;
+  padding: 16px !important; /* padding interne ajouté */
+  justify-items: stretch;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.home .parutions.grid-3 > *,
+#grains-list.parutions.grid-3 > * {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+.home .parutions.grid-3 .doc-card,
+#grains-list.parutions.grid-3 .doc-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+}
+
+.home .parutions.grid-3 .doc-thumb,
+#grains-list.parutions.grid-3 .doc-thumb {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+.home .parutions.grid-3 .doc-thumb img,
+.home .parutions.grid-3 .doc-thumb canvas,
+#grains-list.parutions.grid-3 .doc-thumb img,
+#grains-list.parutions.grid-3 .doc-thumb canvas {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+/* === CORRECTIFS CONTACT MOBILE - ULTRA PRIORITAIRE === */
+
+/* Forcer les fonds sur TOUS les écrans pour la page contact */
+body.contact-page .contact-intro,
+body.contact-page .contact-form,
+body.contact-page .contact-details,
+.contact-intro,
+.contact-form,
+.contact-details {
+  background: var(--glass-bg-alt) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--glass-shadow) !important;
+  backdrop-filter: var(--surface-blur) !important;
+  -webkit-backdrop-filter: var(--surface-blur) !important;
+  border-radius: 18px !important;
+  padding: 32px 36px !important;
+}
+
+/* Mobile ≤1030px */
+@media (max-width: 1030px) {
+  body.contact-page .contact-intro,
+  body.contact-page .contact-form,
+  body.contact-page .contact-details,
+  .contact-intro,
+  .contact-form,
+  .contact-details {
+    background: var(--glass-bg-alt) !important;
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: var(--glass-shadow) !important;
+    backdrop-filter: var(--surface-blur) !important;
+    -webkit-backdrop-filter: var(--surface-blur) !important;
+    border-radius: 18px !important;
+    padding: 24px !important;
+  }
+}
+
+/* Mobile ≤530px - FORÇAGE ABSOLU */
+@media (max-width: 530px) {
+  /* FORCER les fonds sur TOUS les éléments contact peu importe le contexte */
+  body.contact-page .contact-intro,
+  body.contact-page .contact-form,
+  body.contact-page .contact-details,
+  body .contact-intro,
+  body .contact-form,
+  body .contact-details,
+  main.contact-page .contact-intro,
+  main.contact-page .contact-form,
+  main.contact-page .contact-details,
+  main .contact-intro,
+  main .contact-form,
+  main .contact-details,
+  .container.contact-page .contact-intro,
+  .container.contact-page .contact-form,
+  .container.contact-page .contact-details,
+  .container .contact-intro,
+  .container .contact-form,
+  .container .contact-details,
+  .contact-intro,
+  .contact-form,
+  .contact-details,
+  section.contact-intro,
+  form.contact-form,
+  aside.contact-details,
+  .contact-content .contact-form,
+  .contact-content .contact-details {
+    background: var(--glass-bg-alt) !important;
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: var(--glass-shadow) !important;
+    backdrop-filter: var(--surface-blur) !important;
+    -webkit-backdrop-filter: var(--surface-blur) !important;
+    border-radius: 18px !important;
+    padding: 24px !important;
+    margin-bottom: 16px !important;
+  }
+}
+
+/* === CORRECTIFS CRITIQUES DOCUMENTATION MOBILE - ULTRA AGRESSIFS === */
+
+/* DÉSACTIVATION GLOBALE pour la page documentation */
+body.documentation-page * {
+  transition: none !important;
+  animation: none !important;
+  will-change: auto !important;
+}
+
+/* Tous écrans mobiles ≤1030px */
+@media (max-width: 1030px) {
+  /* Forcer fond opaque sans blur sur tout le contenu */
+  body.documentation-page,
+  body.documentation-page main,
+  body.documentation-page .container,
+  body.documentation-page .home,
+  body.documentation-page .parutions,
+  body.documentation-page .presse,
+  body.documentation-page .doc-card,
+  body.documentation-page .doc-thumb,
+  body.documentation-page .actu,
+  body.documentation-page .membre {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(4, 27, 36, 0.95) !important;
+  }
+
+  /* Neutraliser les fonds fixes et pseudo-éléments sources de flicker */
+  body.documentation-page {
+    background-attachment: scroll !important;
+    background: #0a1e28 !important; /* fond stable, non flou */
+  }
+  body.documentation-page::before,
+  body.documentation-page::after {
+    content: none !important; /* supprime les calques fixes */
+    background: none !important;
+    background-attachment: scroll !important;
+  }
+
+  /* Désactiver toutes transformations et hover */
+  body.documentation-page .doc-card,
+  body.documentation-page .doc-card:hover,
+  body.documentation-page .doc-card:focus,
+  body.documentation-page .doc-card:active {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Simplifier miniatures */
+  body.documentation-page .doc-thumb,
+  body.documentation-page .doc-thumb img,
+  body.documentation-page .doc-thumb canvas {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    background: rgba(30, 30, 30, 0.95) !important;
+  }
+}
+
+/* Très petits écrans ≤530px - encore plus strict */
+@media (max-width: 530px) {
+  body.documentation-page,
+  body.documentation-page *,
+  body.documentation-page *::before,
+  body.documentation-page *::after {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  body.documentation-page .home,
+  body.documentation-page .doc-card,
+  body.documentation-page .doc-thumb {
+    background: #0a1e28 !important;
+  }
+}
