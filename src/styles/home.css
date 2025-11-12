@@ -1857,7 +1857,7 @@ body > *:not(header):not(footer) { flex: 1 0 auto; }
   width: 90% !important;
   max-width: 90% !important;
   margin: 0 auto !important;
-  padding: 16px !important; /* padding interne ajouté */
+  padding: 24px !important; /* padding interne augmenté */
   justify-items: stretch;
   overflow: hidden !important;
   box-sizing: border-box !important;
