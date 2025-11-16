@@ -25,8 +25,8 @@ netlify dev
 1. Récupère le dépôt (si pas déjà fait):
 
 ```bash
-git clone <url-du-repo>
-cd lomener-site
+git clone <https://github.com/Corentin56270/lpa.git>
+cd lpa
 ```
 
 2. Installe les dépendances :

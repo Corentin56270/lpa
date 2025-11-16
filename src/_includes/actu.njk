@@ -18,12 +18,11 @@ layout: 'base.njk'
                 </a>
             </figure>
         </div>
-        <hr class="actu-barre">
 
         <div class="actu-content">
             {{ content | safe }}
         </div>
-
+        <br>
         {% if pdf %}
         <div class="actu-download">
             <a class="btn actu-download-btn" href="{{ pdf }}" target="_blank" rel="noopener">
