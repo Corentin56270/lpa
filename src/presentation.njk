@@ -38,32 +38,24 @@ layout: 'base.njk'
 
         <h2 id="territoire">Territoire</h2>
         <div class="historique territoire section-card">
-            <p>Notre association agit sur le littoral de Ploemeur et ses villages (Lomener, Le Pérello, Le Courégant, etc.), pour préserver le cadre de vie, le patrimoine naturel et maritime.</p>
+            <p> Notre association agit sur le périmètre d’action suivant, découpé en 8 secteurs :</p>
         </div>
 
         <hr class="section-divider">
 
-        <h2 id="membres">Membres du bureau</h2>
+        <h2 id="membres">Membres du conseil d'administration</h2>
         <div class="membres-intro section-card">
             <p>L'association est dirigée par un conseil d'administration composé au minimum de 8 membres et au maximum de 17 membres.
             <br>
             <p>Chaque année lors de l'assemblée générale, le conseil d'administration procède à l'élection du bureau parmi ses membres.</p>
         </div>
-        <div class="membres">
-            {%- for post in collections.membre -%}
-                <a href="{{ post.url }}" class="membre">
-                    <header class="membre-head">
-                        <h3>{{ post.data.nom }}</h3>
-                        {%- if post.data.position -%}
-                            <p class="membre-position">{{ post.data.position }}</p>
-                        {%- endif -%}
-                    </header>
-                    <figure class="membre-media">
-                        <img src="{{ post.data.photo }}" alt="{{ post.data.nom }}">
-                    </figure>
-                    <p class="membre-cta">Voir la fiche</p>
-                </a>
-            {%- endfor -%}
+        
+        <figure class="conseil-photo">
+            <img src="{{ presentation.photoConseil }}" alt="Conseil d'administration de Lomener Port d'Attache">
+        </figure>
+
+        <div class="membres-liste section-card">
+            {{ presentation.texteMembres | markdown | safe }}
         </div>
 
     </section>

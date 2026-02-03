@@ -1339,6 +1339,39 @@ footer .container {
   -webkit-backdrop-filter: var(--surface-blur);
 }
 
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #ffffff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background-color 0.15s, box-shadow 0.15s, opacity 0.15s, text-decoration 0.15s;
+}
+
+.footer-social a svg {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+}
+
+.footer-social a span {
+  font-size: 1.08em;
+}
+
+.footer-social a:hover,
+.footer-social a:focus {
+  background-color: rgba(255,255,255,0.08);
+  text-decoration: underline;
+  opacity: 0.95;
+}
+
+.footer-social a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.12);
+}
+
 .parution {
   background: var(--glass-bg-alt);
   border: 1px solid var(--glass-border);

@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Corentin56270/lpa#readme",
   "dependencies": {
+    "markdown-it": "^14.0.0",
     "nodemailer": "^7.0.6"
   },
   "devDependencies": {

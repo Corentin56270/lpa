@@ -1,0 +1,38 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "src/media"
+public_folder: "/media"
+
+collections:
+  - name: "pages"
+    label: "Pages"
+    files:
+      - label: "Page Présentation"
+        name: "presentation"
+        file: "src/_data/presentation.json"
+        fields:
+          - { label: "Photo du Conseil", name: "photoConseil", widget: "image", media_folder: "/src/media/membres", public_folder: "/media/membres" }
+          - { label: "Texte Membres", name: "texteMembres", widget: "markdown", hint: "Texte libre pour présenter les membres du conseil d'administration" }
+
+  - name: "grains"
+    label: "Grains de Sel"
+    folder: "src/grains"
+    create: true
+    slug: "grain-{{year}}"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Année", name: "year", widget: "number" }
+      - { label: "PDF", name: "pdf", widget: "file", media_folder: "/src/media/grains_de_sel", public_folder: "/media/grains_de_sel" }
+      - { label: "Date de publication", name: "date", widget: "datetime" }
+
+  - name: "posts"
+    label: "Articles"
+    folder: "src/posts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Date de publication", name: "date", widget: "datetime" }
+      - { label: "Contenu", name: "body", widget: "markdown" }
