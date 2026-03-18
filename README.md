@@ -1,6 +1,6 @@
 # Lomener Port d'Attache – Site
 
-Ce dépôt contient le site de l'association **Lomener Port d'Attache**, construit avec Eleventy (11ty). Ce README explique de manière simple et directe comment lancer le site en local pour du développement ou pour prévisualiser la version statique.
+Ce dépôt contient le site de l'association **Lomener Port d'Attache**, construit avec Eleventy. Ce README explique comment lancer le site en local pour du développement ou pour prévisualiser une version statique.
 
 ---
 
@@ -10,7 +10,7 @@ Ce dépôt contient le site de l'association **Lomener Port d'Attache**, constru
 - `npm` (fourni avec Node.js)
 
 **Optionnel** :
-- `netlify-cli` si tu veux tester les fonctions Netlify (formulaire) en local :
+- `netlify-cli` pour tester les fonctions Netlify en local :
 
 ```bash
 npm i -g netlify-cli
@@ -20,16 +20,16 @@ netlify dev
 
 ---
 
-## Démarrer le projet en local (pas à pas)
+## Démarrer le projet en local
 
-1. Récupère le dépôt (si pas déjà fait):
+1. Récupérer le dépôt (si pas déjà fait):
 
 ```bash
 git clone <https://github.com/Corentin56270/lpa.git>
 cd lpa
 ```
 
-2. Installe les dépendances :
+2. Installer les dépendances :
 
 ```bash
 npm install
@@ -43,7 +43,7 @@ npm run start
 
 Eleventy sert par défaut sur http://localhost:8080 (il affiche l'URL dans le terminal). Toute modification dans `src/` est régénérée automatiquement.
 
-Astuce pour changer de port :
+Pour changer de port :
 
 ```bash
 npm run start -- --port=3000
@@ -84,7 +84,7 @@ npm run build
 npm run build
 ```
 
-Les fichiers statiques sont écrits dans `public/`. Pour visualiser localement le résultat statique, tu peux servir ce dossier avec `http-server`, `serve`, ou le serveur Python :
+Les fichiers statiques sont écrits dans `public/`. Pour visualiser localement le résultat statique, servir ce dossier avec `http-server`, `serve`, ou le serveur Python :
 
 ```bash
 npx http-server public -p 8080
@@ -96,29 +96,30 @@ python3 -m http.server 8080 --directory public
 
 ## Accéder depuis un autre appareil sur le réseau local
 
-Si tu veux prévisualiser le site depuis un téléphone ou une autre machine du réseau :
+Pour prévisualiser le site depuis un téléphone ou une autre machine du réseau :
 
-1. Trouve ton IP locale (exemple Linux) :
+1. Trouver l'IP locale (host) :
 
+Linux :
 ```bash
 ip a
 # repère l'IP sur ton interface réseau (ex: 192.168.1.23)
 ```
 
-ou pour Windows :
+Windows :
 ``` bash
 ipconfig
 # repère l'IP sur ton interface réseau (ex: 192.168.1.23)
 ```
 
-2. Ouvre dans le navigateur de l'autre appareil :
+2. Ouvrir dans le navigateur de l'autre appareil (client) :
 
 ``` bash
 http://<ton_ip_locale>:8080
 # ex : http://192.168.1.23:8080
 ```
 
-(Remplace 8080 par le port que tu utilises si tu l'as changé.)
+(Remplacer 8080 par le port utilisé si changement intentionnel, et par défaut si 8080 est déjà pris il sera sur 8081)
 
 ---
 
@@ -126,9 +127,9 @@ http://<ton_ip_locale>:8080
 
 Le formulaire de contact utilise une fonction serverless située dans `netlify/functions/send-contact.js` (et `nodemailer`). Pour tester l'envoi en local :
 
-- Option A (rapide) : déployer sur Netlify (branch + build) et tester depuis l'URL de preview.
-
-- Option B (local) : utiliser `netlify-cli` :
+- en local : utiliser `netlify-cli` :
+OU
+- déployer sur Netlify (branch + build) et tester depuis l'URL de preview.
 
 ```bash
 npm i -g netlify-cli
@@ -152,13 +153,13 @@ netlify dev
 
 ## Dépannage rapide
 
-- Si `npm run start` refuse de démarrer : vérifie la version de Node (`node -v`) et supprime `node_modules` puis réinstalle :
+- Si `npm run start` refuse de démarrer : vérifier la version de Node (`node -v`) et supprimer `node_modules` puis réinstalle :
 
 ```bash
 rm -rf node_modules package-lock.json
 npm install
 ```
 
-- Si la page ne se recharge pas après modification : relance `npm run start`. Eleventy peut parfois garder un processus ou watcher bloqué.
+- Si la page ne se recharge pas après modification : relancer `npm run start`. Eleventy peut parfois garder un processus ou watcher bloqué.
 
-- Si le PDF ou les médias ne s'affichent pas : vérifie que `public/` a bien été régénéré (`npm run build`) et que les chemins (`/media/...`) existent.
+- Si le PDF ou les médias ne s'affichent pas : vérifier que `public/` a bien été régénéré (`npm run build`) et que les chemins (`/media/...`) existent.

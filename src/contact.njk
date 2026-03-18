@@ -10,49 +10,9 @@ bodyClass: 'contact-page'
 			Un problème à faire remonter, une question sur nos activités, ou simplement un mot à nous adresser ?
 			Remplissez le formulaire ci-dessous : nous revenons vers vous dès que possible.
 		</p>
-	</section>
-
-	<section class="contact-content">
-		<form id="contact-form" class="contact-form" novalidate>
-			<div class="form-row">
-				<label for="contact-name">Votre nom</label>
-				<input id="contact-name" name="name" type="text" autocomplete="name" minlength="2" maxlength="120" required>
-				<small class="field-error" data-error-for="name" aria-live="polite"></small>
-			</div>
-
-			<div class="form-row">
-				<label for="contact-email">Votre e-mail</label>
-				<input id="contact-email" name="email" type="email" autocomplete="email" maxlength="160" required>
-				<small class="field-error" data-error-for="email" aria-live="polite"></small>
-			</div>
-
-			<div class="form-row">
-				<label for="contact-message">Votre message</label>
-				<textarea id="contact-message" name="message" rows="6" minlength="10" maxlength="4000" required></textarea>
-				<small class="field-error" data-error-for="message" aria-live="polite"></small>
-			</div>
-
-			<div class="form-row form-row-hidden" aria-hidden="true">
-				<label for="contact-website">Site web (laisser vide)</label>
-				<input id="contact-website" name="honeypot" type="text" tabindex="-1" autocomplete="off">
-			</div>
-
-			<button type="submit" class="btn contact-submit">Envoyer</button>
-			<p id="contact-feedback" class="form-feedback" role="status" aria-live="polite"></p>
-		</form>
-
-		<aside class="contact-details">
-			<h3>Informations utiles</h3>
-			<p>
-				Pensez à vérifier votre dossier de courriers
-				indésirables si vous n'avez pas de nouvelles rapidement.
-			</p>
-			<ul>
-				<li>Association Lomener Port d'Attache</li>
-				<li>Ploemeur, Morbihan</li>
-			</ul>
-		</aside>
+		<br>
+		<p>
+			<a href="mailto:lomener.port.dattache@laposte.net" class="btn">Envoyer un e-mail</a>
+		</p>
 	</section>
 </main>
-
-<script src="/scripts/contact-form.js"></script>
