@@ -1,0 +1,14 @@
+/* ===========================
+   MAIN CSS FILE - Imports all modules
+=========================== */
+
+@import './variables.css';
+@import './reset-and-base.css';
+@import './layout.css';
+@import './header.css';
+@import './buttons.css';
+@import './cards.css';
+@import './contact.css';
+@import './footer.css';
+@import './slider.css';
+@import './responsive.css';

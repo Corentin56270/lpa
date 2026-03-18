@@ -1,0 +1,82 @@
+/* ===========================
+   RESET & BASE
+=========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+html, 
+body {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: 'Poppins', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text-color);
+  background: var(--background-gradient);
+  background-attachment: fixed;
+  line-height: 1.6;
+}
+
+body > header { flex: 0 0 auto; }
+body > footer { flex: 0 0 auto; }
+body > *:not(header):not(footer) { flex: 1 0 auto; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Background layers */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: radial-gradient(circle at 20% 20%, rgba(109, 192, 174, 0.16), transparent 55%),
+              radial-gradient(circle at 80% 10%, rgba(35, 119, 136, 0.13), transparent 60%),
+              radial-gradient(circle at 80% 80%, rgba(109, 192, 174, 0.18), transparent 55%);
+  pointer-events: none;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  background-image: url('../media/stole.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  pointer-events: none;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  margin: 16px 0;
+}
+
+.section-divider {
+  margin: 0;
+  border-color: rgba(255, 255, 255, 0.18);
+}

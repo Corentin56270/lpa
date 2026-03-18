@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "eleventy --serve",
-    "build": "eleventy",
-    "thumbs": "node scripts/generate-pdf-thumbs.js"
+    "build": "eleventy"
   },
   "repository": {
     "type": "git",
